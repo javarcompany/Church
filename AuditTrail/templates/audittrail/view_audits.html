@@ -1,0 +1,98 @@
+{% extends "administration/base_site.html" %}
+{% load static %}
+
+{% block main-content %}
+    <section class="wrapper">
+        {% if messages %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                toastr.options = { "closeButton": true, "debug": false, "newestOnTop": true,
+                    "progressBar": false, "positionClass": "toast-top-right", "preventDuplicates": true,
+                    "onclick": null, "showDuration": "300", "hideDuration": "1000", "timeOut": "5000",
+                    "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear",
+                    "showMethod": "fadeIn", "hideMethod": "fadeOut" };
+                {% autoescape off %}
+                    {% for msg in messages %}
+                        toastr.{{ msg.level_tag }}("{{ msg }}");
+                    {% endfor %}
+                {% endautoescape %}
+            });
+        </script>
+        {% endif %}
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Audit Trails Panel</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                            <li class="breadcrumb-item active">Audit Trails</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+			<div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card ">
+                            <div class="card-header bg-info">
+                                <h3 class="card-title">
+                                    <i class="fas fa-file text-white"></i>
+                                    Audit Trail Panel
+                                </h3>
+                            </div>
+                            <!-- /.card-header -->
+
+                            <div class="card-body table-responsive">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th><i class="fa fa-user"></i> USER</th>
+                                            <th><i class="fa fa-cog"></i> ACTION</th>
+                                            <th><i class="fa fa-file"></i> PAGE</th>
+                                            <th>IP ADDRESS</th>
+                                            <th><i class="fas fa-laptop"></i> COMPUTER</th>
+                                            <th><i class="far fa-calendar-alt"></i> DATE OF TRAIL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for audit in Audits %}
+                                        <tr>
+                                            <td><img class="img-circle elevation-2" style="min-width: 50px; max-width: 50px; min-height: 50px; max-height: 50px;" src="/media/{{audit.user.img}}" alt="passp" >
+                                                <span class="users-list-name">{{audit.user.first_name}} {{audit.user.last_name}}</span>
+                                            </td>
+                                            <td>{{audit.action}}</td>
+                                            <td>{{audit.page}}</td>
+                                            <td>{{audit.ipaddress}}</td>
+                                            <td>{{audit.computer}}</td>
+                                            <td>{{audit.dot}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th><i class="fa fa-user"></i> User</th>
+                                        <th><i class="fa fa-cog"></i> Action</th>
+                                        <th><i class="fa fa-file"></i> Page</th>
+                                        <th><i class=""></i> Ip Address</th>
+                                        <th><i class="fas fa-laptop"></i> Computer</th>
+                                        <th><i class="far fa-calendar-alt"></i> Date of Trail</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!--maincontent end-->
+    
+{% endblock %}
