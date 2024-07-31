@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include 'sys_admin/_includes/head.html' %}
+
+  <body class="hold-transition sidebar-mini text-sm layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+
+      <!-- {% include 'sys_admin/_includes/preloader.html' %} -->
+
+      {% include 'sys_admin/_includes/navbar.html' %}
+      
+      {% include 'sys_admin/_includes/sidebar.html' %}
+
+      {% block content %}
+      {% endblock %}
+
+      {% include 'sys_admin/_includes/footer.html' %}
+    </div>
+
+    {% include 'sys_admin/_includes/foot.html' %}
+  </body>
+</html>
